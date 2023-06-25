@@ -6,7 +6,7 @@
 .itemCardParent {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
 }
 .pagination {
@@ -26,6 +26,12 @@
 .pagination a.active {
   background-color: rgb(0, 0, 0);
   color: white;
+}
+.pagination__disable {
+  opacity: 0.5;
+}
+.pagination__disable:hover {
+  background-color: white !important;
 }
 .pagination a:hover:not(.active) {
   background-color: #ddd;

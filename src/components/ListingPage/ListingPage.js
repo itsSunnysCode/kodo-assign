@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./ListingPage.module.css";
 import ItemCard from "../ItemCard";
-function ListingPage() {
+function ListingPage({ items, page, changePage }) {
   return (
     <div>
       <h2 style={{ marginLeft: "10px" }}>Feed</h2>
@@ -14,23 +14,39 @@ function ListingPage() {
         </select>
       </div>
       <div className={styles.itemCardParent}>
-        <ItemCard />
-        <ItemCard />
-        <ItemCard />
-        <ItemCard />
+        {items.slice(page * 10 - 10, page * 10).map((item) => {
+          return <ItemCard data={item} />;
+        })}
       </div>
-      <div className={styles.pagination}>
-        <a href="#">&laquo;</a>
-        <a href="#">1</a>
-        <a href="#" class="active">
-          2
-        </a>
-        <a href="#">3</a>
-        <a href="#">4</a>
-        <a href="#">5</a>
-        <a href="#">6</a>
-        <a href="#">&raquo;</a>
-      </div>
+      {items?.length > 0 ? (
+        <div className={styles.pagination}>
+          <a
+            onClick={() => changePage(page - 1)}
+            className={page > 1 ? "" : styles.pagination__disable}
+          >
+            &laquo;
+          </a>
+          {[...Array(items?.length / 10)].map((_, i) => {
+            return (
+              <a
+                key={i}
+                className={page === i + 1 ? styles.active : ""}
+                onClick={() => changePage(i + 1)}
+              >
+                {i + 1}
+              </a>
+            );
+          })}
+          <a
+            onClick={() => changePage(page + 1)}
+            className={
+              page < items.length / 10 ? "" : styles.pagination__disable
+            }
+          >
+            &raquo;
+          </a>
+        </div>
+      ) : null}
     </div>
   );
 }
