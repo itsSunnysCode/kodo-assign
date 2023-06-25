@@ -1,0 +1,31 @@
+.root {
+  border: 1px solid black;
+  padding: 15px;
+  max-width: 290px;
+  flex: 0 0 100%;
+  margin: 10px;
+}
+@media only screen and (min-width: 768px) {
+  .wrapper {
+    flex: 0 0 50%;
+  }
+}
+@media only screen and (min-width: 992px) {
+  .wrapper {
+    flex: 0 0 33.33%;
+  }
+}
+
+.image {
+  width: 100%;
+}
+
+.title {
+  font-size: 20px;
+  line-height: 24px;
+  margin-bottom: 10px;
+}
+.description {
+  font-size: 14px;
+  line-height: 18px;
+}

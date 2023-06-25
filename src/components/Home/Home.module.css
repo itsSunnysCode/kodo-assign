@@ -1,0 +1,19 @@
+.root {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.wrapper {
+  border: 2px solid black;
+  padding: 20px;
+  margin-top: 50px;
+}
+@media only screen and (min-width: 992px) {
+  .wrapper {
+    max-width: 990px;
+  }
+}
+
+/* sm, small: 600px
+md, medium: 900px
+lg, large: 1200px */
