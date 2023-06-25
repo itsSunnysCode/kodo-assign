@@ -4,18 +4,9 @@ import ItemCard from "../ItemCard";
 function ListingPage({ items, page, changePage }) {
   return (
     <div>
-      <h2 style={{ marginLeft: "10px" }}>Feed</h2>
-      <div className={styles.filter}>
-        <input placeholder="search" />
-        <select placeholder="sort by">
-          <option>name</option>
-          <option>last edited</option>
-          <option>none</option>
-        </select>
-      </div>
       <div className={styles.itemCardParent}>
-        {items.slice(page * 10 - 10, page * 10).map((item) => {
-          return <ItemCard data={item} />;
+        {items?.slice(page * 10 - 10, page * 10).map((item) => {
+          return <ItemCard data={item} key={item.name} />;
         })}
       </div>
       {items?.length > 0 ? (
@@ -26,7 +17,7 @@ function ListingPage({ items, page, changePage }) {
           >
             &laquo;
           </a>
-          {[...Array(items?.length / 10)].map((_, i) => {
+          {[...Array(Math.ceil(items?.length / 10))].map((_, i) => {
             return (
               <a
                 key={i}
