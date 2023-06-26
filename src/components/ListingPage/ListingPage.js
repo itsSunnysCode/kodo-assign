@@ -3,7 +3,7 @@ import styles from "./ListingPage.module.css";
 import ItemCard from "../ItemCard";
 function ListingPage({ items, page, changePage }) {
   return (
-    <div>
+    <div className={styles.wrapper}>
       <div className={styles.itemCardParent}>
         {items?.slice(page * 10 - 10, page * 10).map((item) => {
           return <ItemCard data={item} key={item.name} />;

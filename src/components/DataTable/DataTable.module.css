@@ -1,0 +1,26 @@
+table {
+  border-collapse: collapse;
+  width: 50%;
+  overflow: scroll;
+}
+.wrapper {
+  max-height: 400px;
+  overflow: scroll;
+  display: flex;
+  justify-content: center;
+}
+@media only screen and (min-width: 992px) {
+  table {
+    width: 100%;
+  }
+}
+td,
+th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: #dddddd;
+}

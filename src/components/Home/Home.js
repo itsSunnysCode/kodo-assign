@@ -1,9 +1,11 @@
-import React, { useEffect, useState } from "react";
-import ListingPage from "../ListingPage";
-import data from "../../data";
-import { useDebounce } from "../../customHooks/useDebounce";
+import React, { useEffect, useState, useCallback, useMemo } from "react";
 import styles from "./Home.module.css";
 import { matchQuery, sortByProperty } from "./helper";
+import ListingPage from "../ListingPage";
+import DataTable from "../DataTable";
+import { useDebounce } from "../../customHooks/useDebounce";
+import data from "../../data";
+const selectOptions = ["name", "last edited", "none"];
 
 function Home() {
   const [page, setPage] = useState(1);
@@ -11,16 +13,22 @@ function Home() {
   const [search, setSearch] = useState("");
   const [sortBy, setSortBy] = useState("");
   const debouncedSearch = useDebounce(search, 300);
-  const isSortSelected = ["name", "last edited"].includes(sortBy);
-  const changePage = (selectedPage) => {
-    if (
-      selectedPage >= 1 &&
-      selectedPage <= Math.ceil(items.length / 10) &&
-      selectedPage !== page
-    ) {
-      setPage(selectedPage);
-    }
-  };
+  const isSortSelected = useMemo(
+    () => selectOptions.slice(0, 2).includes(sortBy),
+    [sortBy]
+  );
+  const changePage = useCallback(
+    (selectedPage) => {
+      if (
+        selectedPage >= 1 &&
+        selectedPage <= Math.ceil(items.length / 10) &&
+        selectedPage !== page
+      ) {
+        setPage(selectedPage);
+      }
+    },
+    [page, items]
+  );
 
   useEffect(() => {
     const { cachedSearch, cachedSort } =
@@ -73,7 +81,7 @@ function Home() {
             onChange={(e) => setSortBy(e.target.value)}
             value={sortBy}
           >
-            {["name", "last edited", "none"].map((d) => (
+            {selectOptions.map((d) => (
               <option key={d} value={d}>
                 {d}
               </option>
@@ -81,6 +89,7 @@ function Home() {
           </select>
         </div>
         <ListingPage items={items} changePage={changePage} page={page} />
+        <DataTable items={items} />
       </div>
     </div>
   );
